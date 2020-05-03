@@ -7,6 +7,7 @@ import { enableScreens } from 'react-native-screens';
 import ShopNavigator from './navigation/ShopNavigator';
 import productsReducer from './store/reducers/products';
 import cartReducer from './store/reducers/cart';
+import ordersReducer from './store/reducers/orders';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 enableScreens();
@@ -14,6 +15,7 @@ enableScreens();
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
+  orders: ordersReducer,
 });
 
 const fetchFonts = () => {
