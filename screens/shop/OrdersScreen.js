@@ -40,6 +40,4 @@ OrdersScreen.navigationOptions = (navData) => {
   };
 };
 
-const styles = StyleSheet.create({});
-
 export default OrdersScreen;
