@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { enableScreens } from 'react-native-screens';
 import ShopNavigator from './navigation/ShopNavigator';
@@ -25,7 +26,10 @@ const fetchFonts = () => {
   });
 };
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
