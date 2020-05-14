@@ -25,7 +25,7 @@ const inputReducer = (state, action) => {
 const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : '',
-    isValid: props.initiallyValid ? props.initiallyValid : false,
+    isValid: props.initiallyValid,
     touched: false,
   });
 
@@ -36,10 +36,6 @@ const Input = (props) => {
       onInputChange(id, inputState.value, inputState.isValid);
     }
   }, [inputState, onInputChange, id]);
-
-  const lostFocusHandler = () => {
-    dispatch({ type: INPUT_BLUR });
-  };
 
   const textChangeHandler = (text) => {
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,7 +55,11 @@ const Input = (props) => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
-    dispatch({ type: INPUT_CHANGE, value: text, isValid });
+    dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
+  };
+
+  const lostFocusHandler = () => {
+    dispatch({ type: INPUT_BLUR });
   };
 
   return (
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontFamily: 'roboto-regular',
-    fontSize: 13,
     color: 'red',
+    fontSize: 13,
   },
 });
 

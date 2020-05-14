@@ -15,7 +15,7 @@ import * as productsActions from '../../store/actions/products';
 import Input from '../../components/UI/Input';
 import Colors from '../../constants/Colors';
 
-const FORM_UPDATE = 'UPDATE';
+const FORM_UPDATE = 'FORM_UPDATE';
 
 const formReducer = (state, action) => {
   if (action.type === FORM_UPDATE) {
