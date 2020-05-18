@@ -6,6 +6,7 @@ import {
   FlatList,
   StyleSheet,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
@@ -33,6 +34,18 @@ const OrdersScreen = (props) => {
   }, [dispatch, loadOrders]);
 
   const orders = useSelector((state) => state.orders.orders);
+
+  if (orders.length === 0 || !orders) {
+    return (
+      <View style={styles.noOrders}>
+        <Text>You have no orders currently.</Text>
+        <Button
+          title="Shop Now"
+          onPress={() => props.navigation.navigate('Products')}
+        />
+      </View>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -80,6 +93,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  noOrders: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
