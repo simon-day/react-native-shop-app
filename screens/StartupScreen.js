@@ -11,11 +11,13 @@ import * as authActions from '../store/actions/auth';
 
 const StartupScreen = (props) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const tryLogin = async () => {
       const userData = await AsyncStorage.getItem('userData');
       if (!userData) {
-        props.navigation.navigate('Auth');
+        dispatch(authActions.setDidTryAL());
+        // props.navigation.navigate('Auth');
         return;
       }
       const transformedData = JSON.parse(userData);
@@ -24,13 +26,15 @@ const StartupScreen = (props) => {
       const expirationDate = new Date(expiryDate);
 
       if (expirationDate <= new Date() || !token || !userId) {
-        props.navigation.navigate('Auth');
+        dispatch(authActions.setDidTryAL());
+        // props.navigation.navigate('Auth');
         return;
       }
 
       const expirationTime = expirationDate.getTime() - new Date().getTime();
 
-      props.navigation.navigate('Shop');
+      // props.navigation.navigate('Shop');
+
       dispatch(authActions.authenticate(userId, token, expirationTime));
     };
 
